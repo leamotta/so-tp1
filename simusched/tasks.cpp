@@ -1,4 +1,5 @@
 #include "tasks.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -18,6 +19,45 @@ void TaskAlterno(int pid, vector<int> params) { // params: ms_pid, ms_io, ms_pid
 	}
 }
 
+void TaskBatch(int pid, vector<int> params){ // params: totalCPU, cantBloqueos
+	int totalCPU = params[0];
+	int cantBloqueos = params[1];
+	int netoCPU = totalCPU-1-cantBloqueos;
+	// cada bloqueo suma 1 al totalCPU por eso restamos cantBloqueos
+	// restamos 1 porque el return consume 1 ciclo
+	
+	srand (time(NULL)); // cambiamos la semilla del numero pseudoaleatorio
+	
+	vector<int> tiempoCPU; 
+	// este vector va a tener el tiempo que se va a usar la CPU hasta ser bloqueado
+
+	for (int i = 0; i < cantBloqueos; i++){
+		// posicionamos los bloqueos en lugares random usando mod
+		tiempoCPU.push_back(rand()%netoCPU); 
+	}
+
+	/* Ordenamos las posiciones de los bloqueos para poder recorrerlas*/
+	sort(tiempoCPU.begin(), tiempoCPU.end());
+
+	for (int i = 0; i < cantBloqueos-1; i++){
+		// para cada elemento del vector restamos el anterior (exceptuando el primero)
+		// esto convierte a cada elemento i en el tiempo de uso de CPU hasta el bloqueo nro i+1
+		tiempoCPU[cantBloqueos-1-i] -= tiempoCPU[cantBloqueos-2-i]; 
+	}
+
+	/* Recorremos el vector, usando la CPU según nos indique cada posición */
+	for (int i = 0; i < cantBloqueos; i++){
+		if (tiempoCPU[i]){
+			uso_CPU(pid,tiempoCPU[i]);
+			netoCPU -= tiempoCPU[i];
+		}
+		uso_IO(pid,2);
+	}
+	
+	if (netoCPU){
+		uso_CPU(pid,netoCPU);
+	}
+}
 
 
 void tasks_init(void) {
@@ -27,4 +67,5 @@ void tasks_init(void) {
 	register_task(TaskCPU, 1);
 	register_task(TaskIO, 2);
 	register_task(TaskAlterno, -1);
+	register_task(TaskBatch, 2);
 }

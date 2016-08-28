@@ -1,0 +1,4 @@
+*.o
+
+# vim temporals
+*.swp

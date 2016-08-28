@@ -1,4 +1,8 @@
-*.o
-
 # vim temporals
 *.swp
+
+# Archivos generados durante la compilacion
+*.o
+*.exe
+*.out
+*.app

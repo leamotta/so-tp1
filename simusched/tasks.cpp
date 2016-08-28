@@ -1,4 +1,7 @@
 #include "tasks.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
 
 using namespace std;
 
@@ -18,6 +21,14 @@ void TaskAlterno(int pid, vector<int> params) { // params: ms_pid, ms_io, ms_pid
 	}
 }
 
+void TaskConsola(int pid, vector<int> params) { // params: ms_pid, n, bmin, bmax
+    for (int i = 0; i < params[0]; i++) {
+        int ciclos = rand() % (params[2]-params[1]) + params[1];
+        uso_IO(pid, ciclos);
+        uso_CPU(pid, 1);
+    }
+    exit(1);
+}
 
 
 void tasks_init(void) {
@@ -27,4 +38,5 @@ void tasks_init(void) {
 	register_task(TaskCPU, 1);
 	register_task(TaskIO, 2);
 	register_task(TaskAlterno, -1);
+    register_task(TaskConsola, 3);
 }

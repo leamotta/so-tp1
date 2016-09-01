@@ -32,8 +32,8 @@ ejercicio5:
 	./simusched ej2.tsk 1 2 1 SchedRR 10 > ej5-Quantum10.txt
 
 ejercicio7: 
-	./simusched ej7_SJF.tsk 1 1 1 SchedSJF 1 | python graphsched.py > ej7_SJF.png
-	./simusched ej7_RSJF.tsk 1 1 1 SchedRSJF 3 | python graphsched.py > ej7_RSJF.png
+	./simusched ej7_SJF.tsk 1 1 1 SchedSJF 1 5 7 3 | python graphsched.py > ej7_SJF.png
+	./simusched ej7_RSJF.tsk 1 1 1 SchedRSJF 1 3 8 12 9 | python graphsched.py > ej7_RSJF.png
 
 clean:
 	rm -f $(OBJS) $(MAIN)

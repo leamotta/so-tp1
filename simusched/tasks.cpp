@@ -30,7 +30,7 @@ void TaskConsola(int pid, vector<int> params) { // params: ms_pid, n, bmin, bmax
         uso_IO(pid, ciclos);
         uso_CPU(pid, 1);
     }
-    exit(1);
+    //exit(1);
 }
 
 void TaskBatch(int pid, vector<int> params){ // params: totalCPU, cantBloqueos

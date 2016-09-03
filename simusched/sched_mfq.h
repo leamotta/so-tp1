@@ -16,7 +16,12 @@ class SchedMFQ : public SchedBase {
 		virtual int tick(int n, const enum Motivo m);
 	
 	private:
-/* llenar */
+		vector<std::queue<int> > colas; // vector de colas de prioridad
+		vector<int> quantums; // vector de quantums (que recibimos por parámetro) 
+		vector<int> bloqueados;  //	vector de tareas bloqueadas
+		int quantumActual, n, prioridadActual;
+		
+		int next();
 };
 
 #endif

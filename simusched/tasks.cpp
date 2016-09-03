@@ -26,11 +26,11 @@ void TaskConsola(int pid, vector<int> params) { // params: ms_pid, n, bmin, bmax
 	srand (time(NULL)); // cambiamos la semilla del numero pseudoaleatorio
 
     for (int i = 0; i < params[0]; i++) {
-        int ciclos = rand() % (params[2]-params[1]) + params[1];
+        int ciclos = rand() % (params[2]+1-params[1]) + params[1];
         uso_IO(pid, ciclos);
         uso_CPU(pid, 1);
     }
-    exit(1);
+    //exit(1);
 }
 
 void TaskBatch(int pid, vector<int> params){ // params: totalCPU, cantBloqueos

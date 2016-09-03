@@ -40,4 +40,11 @@ unsigned int current_time();
 template<typename T>
 SchedBase& create_sched(const std::vector<int>& argn) { return ( new T(argn) ); }
 
+struct info_pid
+{
+	int pid;
+	int tiempo;
+};
+
+
 #endif

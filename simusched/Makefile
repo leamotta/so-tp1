@@ -21,7 +21,7 @@ simusched.o: simusched.cpp basetask.h basesched.h tasks.h
 tasks.o: tasks.cpp tasks.h basetask.h
 
 ejercicio3: 
-	./simusched ej3.tsk 1 1 1 SchedFCFS | python graphsched.py > ej3.png
+	./simusched ej3.tsk 1 1 1 SchedFCFS | python graphsched.py > ./imagenes/ej3.png
 
 ejercicio5: 
 	./simusched ej2.tsk 1 2 1 SchedRR 2 | python graphsched.py > ./imagenes/ej5-Quantum2.png

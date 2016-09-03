@@ -43,7 +43,7 @@ class SchedSJF : public SchedBase {
 		cola_prioridad_sfj cola; //Cola global de procesos listos.
 		std::vector<int> pid_quantum;
 		int next(int cpu); //Se encarga de seleccionar al siguiente proceso que debe ingresar a la cpu.
-		int buscarTiempo(cola_prioridad_sfj cola, int pid);
+		int buscarTiempo(int pid);
 };
 
 #endif

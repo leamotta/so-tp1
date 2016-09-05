@@ -2,8 +2,6 @@
 #include <queue>
 #include "sched_mfq.h"
 #include "basesched.h"
-#include <iostream>
-#include <fstream>
 
 using namespace std;
 
@@ -14,8 +12,10 @@ SchedMFQ::SchedMFQ(vector<int> argn) {
 	}
 	this->n = argn.size()-1; //resto el parametro de cant de cores
 	this->colas = vector<queue<int> >(n);
-	this->quantumActual = 0;
-	this->prioridadActual = -1;
+	for (int i=0; i < argn[0]; i++){ //En argn[0] está la cantidad de cores.
+		this->quantumActual.push_back(0);
+		this->prioridadActual.push_back(-1);
+	}
 }
 
 SchedMFQ::~SchedMFQ() {
@@ -33,43 +33,44 @@ void SchedMFQ::unblock(int pid) {
 int SchedMFQ::tick(int core, const enum Motivo m) {
 	if (m == EXIT) {
 		// La tarea actual no se encola nuevamente
-		return next();
+		return next(core);
 	} else if (m == BLOCK) {
-		// La tarea se bloqueó y sube de prioridad
-		if (prioridadActual > 0){
-			prioridadActual--;
+		// La tarea se bloqueó y sube de prioridad	
+		if (prioridadActual[core] > 0){
+			prioridadActual[core]--;
 		}
 		// Se agrega en el vector de tareas bloqueadas
-		bloqueados[current_pid(core)] = prioridadActual;
-		return next();
+		bloqueados[current_pid(core)] = prioridadActual[core];
+		return next(core);
 	} else { // m == TICK
-		if (quantumActual) { 
+		if (quantumActual[core]) { 
 			//Si todavía no consumió su quantum sigue el mismo proceso
-			quantumActual--;
+			quantumActual[core]--;
 			return current_pid(core);
 		} else {
 			// El proceso agotó su quantum y baja de prioridad
 			if (current_pid(core) != IDLE_TASK) {
-				if (prioridadActual < n-1){
-					prioridadActual++;
+				if (prioridadActual[core] < n-1){
+					prioridadActual[core]++;
 				}
-				colas[prioridadActual].push(current_pid(core));
+				colas[prioridadActual[core]].push(current_pid(core));
 			}
-			return next();
+			return next(core);
 		}
 	}
 	return 0;
 }
 
-int SchedMFQ::next() {
+int SchedMFQ::next(int core) {
 	// Elijo el nuevo pid
 	int nuevo = IDLE_TASK;
-	quantumActual = 0; // El IDLE_TASK tiene quantum 0 para que al próximo tick vea si hay alguien esperando.
-	for (prioridadActual = 0; prioridadActual < n; prioridadActual++) {
-		if (!colas[prioridadActual].empty()) {
-			nuevo = colas[prioridadActual].front();
-			colas[prioridadActual].pop();
-			quantumActual = quantums[prioridadActual] - 1; // -1 porque contamos este tick
+	quantumActual[core] = 0; // El IDLE_TASK tiene quantum 0 para que al próximo tick vea si hay alguien esperando.
+	for (int i = 0; i < n; i++) {
+		if (!colas[i].empty()) {
+			nuevo = colas[i].front();
+			colas[i].pop();
+			prioridadActual[core] = i;
+			quantumActual[core] = quantums[i] - 1; // -1 porque contamos este tick
 			return nuevo;
 		}
 	}

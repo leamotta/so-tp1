@@ -11,13 +11,13 @@ SchedRSJF::SchedRSJF(vector<int> argn) {
 
 	for (int i=1; i < argn[0] + 1; i++){ //En argn[0] está la cantidad de cores.
 		//cerr << "i1: " << i << endl;
-		def_quantum.push_back(argn[i+1]);
+		def_quantum.push_back(argn[i]);
 	}
 
-	for (int i=argn[0]+1; i < argn.size() - 1; i++){
+	for (int i=argn[0]+1; i < argn.size(); i++){
 		//cerr << "i2: " << i << endl;
 		consumido_quantum.push_back(0); 
-		pid_quantum.push_back(argn[i+1]); 
+		pid_quantum.push_back(argn[i]); 
 		//cerr << "la pos " << i-argn[0]-1 << "tiene quantum " << pid_quantum[i-argn[0]-1] << endl;
 	}
 }
@@ -47,7 +47,7 @@ void SchedRSJF::unblock(int pid) {
 int SchedRSJF::tick(int cpu, const enum Motivo m) {
 	if (m == TICK){
 		//cerr << "TICK en cpu: " << cpu << ". Esta corriendo el pid: " << current_pid(cpu) << ". Le quedan: " << pid_quantum[current_pid(cpu)] << endl;
-		if (current_pid(cpu) == IDLE_TASK && !cola.empty()) { //Si la CPU está libre se pone el próximo proceso de la cola si es que hay alguno.
+		if (current_pid(cpu) == IDLE_TASK) { //Si la CPU está libre se pone el próximo proceso de la cola
 			//cerr << "Tarea IDLE o Cola VACIA." << endl;
 			//cerr << "tam cola " << cola.size() << endl;
 			return next(cpu);
@@ -70,6 +70,7 @@ int SchedRSJF::tick(int cpu, const enum Motivo m) {
 		}
 	}else{ //m = EXIT o m = BLOCK
 		//cerr << "EXIT en cpu " << cpu << ". El pid " << current_pid(cpu) << " consumio su quantum" << endl;
+		//cerr << "tam cola " << cola.size() << endl;
 		return next(cpu); //Ya sea porque el proceso actual terminó o porque se bloqueó llamamos al siguiente proceso para ocupar la CPU.
 	}
 }

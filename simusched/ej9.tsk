@@ -1,0 +1,10 @@
+TaskCPU 5
+TaskBatch 10 2
+TaskCPU 8
+TaskBatch 15 3
+@10:
+TaskBatch 7 1
+@11:
+TaskCPU 9
+@12:
+TaskCPU 10

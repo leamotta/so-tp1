@@ -23,7 +23,7 @@ void TaskAlterno(int pid, vector<int> params) { // params: ms_pid, ms_io, ms_pid
 }
 
 void TaskConsola(int pid, vector<int> params) { // params: ms_pid, n, bmin, bmax
-
+    srand (time(NULL)); // cambiamos la semilla del numero pseudoaleatorio
     for (int i = 0; i < params[0]; i++) {
         int ciclos = rand() % (params[2]+1-params[1]) + params[1];
         uso_IO(pid, ciclos);
@@ -37,6 +37,8 @@ void TaskBatch(int pid, vector<int> params){ // params: totalCPU, cantBloqueos
 	int netoCPU = totalCPU-1-cantBloqueos;
 	// cada bloqueo suma 1 al totalCPU por eso restamos cantBloqueos
 	// restamos 1 porque el return consume 1 ciclo
+	
+	srand (time(NULL)); // cambiamos la semilla del numero pseudoaleatorio
 	
 	vector<int> tiempoCPU; 
 	// este vector va a tener el tiempo que se va a usar la CPU hasta ser bloqueado

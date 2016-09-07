@@ -20,6 +20,14 @@ simu.o: simu.cpp simu.h basetask.h basesched.h
 simusched.o: simusched.cpp basetask.h basesched.h tasks.h
 tasks.o: tasks.cpp tasks.h basetask.h
 
+ejercicio1: 
+	./simusched ej1.tsk 4 1 10 SchedFCFS | python graphsched.py > ./imagenes/ej1.png
+
+ejercicio2: 
+	./simusched ej2.tsk 1 2 2 SchedFCFS | python graphsched.py > ./imagenes/ej2_1.png
+	./simusched ej2.tsk 2 2 2 SchedFCFS | python graphsched.py > ./imagenes/ej2_2.png
+	./simusched ej2.tsk 4 2 2 SchedFCFS | python graphsched.py > ./imagenes/ej2_4.png
+
 ejercicio3: 
 	./simusched ej3.tsk 1 1 1 SchedFCFS | python graphsched.py > ./imagenes/ej3.png
 

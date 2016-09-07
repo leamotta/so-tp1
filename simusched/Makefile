@@ -48,6 +48,7 @@ ejercicio8:
 
 ejercicio9:
 	./simusched ej9.tsk 1 1 1 SchedMFQ 2 3 | python graphsched.py > ./imagenes/ej9.png
+	./simusched ej9.tsk 2 1 1 SchedMFQ 2 3 | python graphsched.py > ./imagenes/ej9b.png
 
 clean:
 	rm -f $(OBJS) $(MAIN)

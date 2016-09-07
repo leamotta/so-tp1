@@ -10,17 +10,11 @@
 
 using namespace std;
 
-/*struct info_pid
-{
-	int pid;
-	int tiempo;
-};*/
-
 class comparacion_rsjf
 {
   bool reverse;
   public:
- 	 comparacion_rsjf(const bool& revparam=false) { reverse = revparam; }
+ 	 comparacion_rsjf(const bool& revparam = true) { reverse = revparam; }
 
   bool operator() (const info_pid& lhs, const info_pid&rhs) const
   {
@@ -41,10 +35,10 @@ class SchedRSJF : public SchedBase {
 		virtual int tick(int cpu, const enum Motivo m);	
 	private:
 		cola_prioridad_rsfj cola; //Cola global de procesos listos.
-		std::vector<int> cpu_quantum; //Llevar� la cuenta de el quantum consumido por el proceso que est� corriendo en esa cpu.
-		std::vector<int> def_quantum; //Se guardar� el quantum definido por quien llam� al Scheduler para cada cpu.
+		std::vector<int> pid_quantum;
+		std::vector<int> consumido_quantum;
+		std::vector<int> def_quantum; 
 		int next(int cpu); //Se encarga de seleccionar al siguiente proceso que debe ingresar a la cpu.
-		int buscarTiempo(cola_prioridad_rsfj cola, int pid);
 };
 
 #endif

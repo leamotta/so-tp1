@@ -18,10 +18,12 @@ class SchedMFQ : public SchedBase {
 	private:
 		vector<std::queue<int> > colas; // vector de colas de prioridad
 		vector<int> quantums; // vector de quantums (que recibimos por parámetro) 
-		vector<int> bloqueados;  //	vector de tareas bloqueadas
-		int quantumActual, n, prioridadActual;
+		vector<int> bloqueados;  //	vector key=>value de tareas bloqueadas. Key = pid. Value = Prioridad.
+		vector<int> quantumActual; // quantum actual por cpu
+		vector<int> prioridadActual; // prioridad actual por cpu
+		int n;
 		
-		int next();
+		int next(int core);
 };
 
 #endif

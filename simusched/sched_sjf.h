@@ -10,17 +10,11 @@
 
 using namespace std;
 
-/*struct info_pid
-{
-	int pid;
-	int tiempo;
-};*/
-
 class comparacion_sjf
 {
   bool reverse;
   public:
- 	 comparacion_sjf(const bool& revparam=false) { reverse = revparam; }
+ 	 comparacion_sjf(const bool& revparam = true) { reverse = revparam; }
 
   bool operator() (const info_pid& lhs, const info_pid&rhs) const
   {
@@ -43,7 +37,6 @@ class SchedSJF : public SchedBase {
 		cola_prioridad_sfj cola; //Cola global de procesos listos.
 		std::vector<int> pid_quantum;
 		int next(int cpu); //Se encarga de seleccionar al siguiente proceso que debe ingresar a la cpu.
-		int buscarTiempo(int pid);
 };
 
 #endif

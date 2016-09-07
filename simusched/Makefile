@@ -40,8 +40,23 @@ ejercicio5:
 	#./simusched ej2.tsk 1 2 1 SchedRR 10 > ej5-Quantum10.txt
 
 ejercicio7: 
-	./simusched ej7_SJF.tsk 1 1 1 SchedSJF 1 5 | python graphsched.py > ej7_SJF.png
-	#./simusched ej7_RSJF.tsk 1 1 1 SchedRSJF 1 3 8 12 9 | python graphsched.py > ej7_RSJF.png
+	#./simusched ej7_SJF.tsk 1 1 1 SchedSJF 1 5 7 3 | python graphsched.py > ./imagenes/ej7-SJF.png
+	#./simusched ej7_RSJF.tsk 1 1 1 SchedRSJF 1 3 8 4 6 | python graphsched.py > ./imagenes/ej7-RSJF.png
+	#./simusched ej7_RSJF.tsk 2 1 1 SchedRSJF 3 2 8 4 6 | python graphsched.py > ./imagenes/ej7-RSJF2.png
+
+ejercicio8: 
+	./simusched ej8.tsk 1 2 2 SchedSJF 1 5 9 2 7 | python graphsched.py > ./imagenes/ej8-SJF.png
+	./simusched ej8.tsk 1 2 2 SchedRSJF 1 3 5 9 2 7 | python graphsched.py > ./imagenes/ej8-RSJF.png
+	./simusched ej8.tsk 1 2 2 SchedFCFS | python graphsched.py > ./imagenes/ej8-FCFS.png
+	./simusched ej8.tsk 1 2 2 SchedRR 3 | python graphsched.py > ./imagenes/ej8-RR.png
+	#./simusched ej8.tsk 1 2 2 SchedSJF 1 5 9 2 7 > ./imagenes/ej8-SJF.txt
+	#./simusched ej8.tsk 1 2 2 SchedRSJF 1 3 5 9 2 7 > ./imagenes/ej8-RSJF.txt
+	#./simusched ej8.tsk 1 2 2 SchedFCFS > ./imagenes/ej8-FCFS.txt
+	#./simusched ej8.tsk 1 2 2 SchedRR 3 > ./imagenes/ej8-RR.txt
+
+ejercicio9:
+	./simusched ej9.tsk 1 1 1 SchedMFQ 2 3 | python graphsched.py > ./imagenes/ej9.png
+	./simusched ej9.tsk 2 1 1 SchedMFQ 2 3 | python graphsched.py > ./imagenes/ej9b.png
 
 clean:
 	rm -f $(OBJS) $(MAIN)

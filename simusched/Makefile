@@ -41,6 +41,8 @@ ejercicio8:
 	./simusched ej8.tsk 1 2 2 SchedRSJF 3 5 9 2 7 | python graphsched.py > ./imagenes/ej8-RSJF.png
 	./simusched ej8.tsk 1 2 2 SchedFCFS | python graphsched.py > ./imagenes/ej8-FCFS.png
 	./simusched ej8.tsk 1 2 2 SchedRR 3 | python graphsched.py > ./imagenes/ej8-RR.png
+	./simusched ej8-2.tsk 2 1 1 SchedFCFS | python graphsched.py > ./imagenes/ej8-2FCFS.png
+	./simusched ej8-2.tsk 2 1 1 SchedRR 6 6 | python graphsched.py > ./imagenes/ej8-2RR.png
 	./simusched ej8-3.tsk 1 1 1 SchedSJF 1 12 3 2 1 | python graphsched.py > ./imagenes/ej8-3SJF.png
 	./simusched ej8-3.tsk 1 1 1 SchedRSJF 3 12 3 2 1 | python graphsched.py > ./imagenes/ej8-3RSJF.png
 	./simusched ej8-4.tsk 2 2 2 SchedRR 2 2 | python graphsched.py > ./imagenes/ej8-4RR.png
